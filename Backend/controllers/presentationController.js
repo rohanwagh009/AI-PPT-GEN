@@ -4,11 +4,19 @@ const Presentation = require("../models/Presentation");
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const generatePresentation = async (req, res) => {
-  const { topic, slideCount = 5 } = req.body;
+  const { topic, slideCount = 5, userId } = req.body;
 
   if (!topic) {
     return res.status(400).json({
       message: "Topic is Required",
+    });
+  }
+
+  const finalSlideCount = parseInt(slideCount, 10);
+
+  if (finalSlideCount < 1 || finalSlideCount > 15) {
+    return res.status(400).json({
+      message: "Slide Count must be between 1 and 15",
     });
   }
 
@@ -17,7 +25,7 @@ const generatePresentation = async (req, res) => {
       model: "gemini-flash-latest",
     });
 
-    const prompt = `Generate a ${slideCount}-slide presentation on the topic: "${topic}".
+    const prompt = `Generate a ${finalSlideCount}-slide presentation on the topic: "${topic}".
 
       Return ONLY a valid JSON object. Do not add markdown formatting like \`\`\`json.
       The Structure must be:
@@ -47,7 +55,13 @@ const generatePresentation = async (req, res) => {
 
     // not saving to DB yet just testing
 
-    res.status(200).json(presentationData);
+    const savedPresentation = await Presentation.create({
+      title: presentationData.title || `&{topic} Presentation`,
+      user: userId,
+      slides: presentationData.slides,
+    });
+
+    res.status(201).json(savedPresentation);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "AI Generation Failed" });
