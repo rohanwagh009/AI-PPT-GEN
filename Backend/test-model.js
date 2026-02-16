@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyCkoZYm6MR_agM0UV1SWRhpavudr4l8UPE"; // PASTE YOUR KEY INSIDE QUOTES
+const API_KEY = ; // PASTE YOUR KEY INSIDE QUOTES
 
 async function getAvailableModels() {
   const url = `https://generativelanguage.googleapis.com/v1beta/models?key=${API_KEY}`;
