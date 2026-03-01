@@ -13,7 +13,12 @@ connectDB();
 
 app.use(express.json());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://ai-ppt-gen-zeta.vercel.app"],
+    credentials:true
+  }),
+);
 app.use("/api/users", userRoutes);
 app.use("/api/presentation", presentationRoutes);
 
