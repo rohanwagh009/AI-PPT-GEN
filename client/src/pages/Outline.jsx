@@ -3,6 +3,7 @@ import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
 import { PresentationContext } from "../context/PresentationContext";
+import api from '../api';
 
 const Outline = () => {
   const navigate = useNavigate();
@@ -28,8 +29,8 @@ const Outline = () => {
         const userInfo = JSON.parse(storageData);
         const currentUserId = userInfo?._id;
 
-        const { data } = await axios.post(
-          "http://localhost:5000/api/presentation/generate",
+        const { data } = await api.post(
+          "/api/presentation/generate",
           { topic, slideCount, userId: currentUserId },
         );
 
@@ -67,8 +68,8 @@ const Outline = () => {
       );
 
       // 2. 🎓 SAVE TO DB: Call the new save route
-      const { data: savedData } = await axios.post(
-        "http://localhost:5000/api/presentation/save",
+      const { data: savedData } = await api.post(
+        "/api/presentation/save",
         { title: topic, slides: updatedSlides, userId: userId },
       );
 

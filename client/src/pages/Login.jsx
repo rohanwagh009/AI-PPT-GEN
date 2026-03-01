@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from '../api'
 
 const Login = () => {
   const [formData, setFormdata] = useState({
@@ -23,8 +24,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault(); // Stop page refresh
     try {
-      const url = "http://localhost:5000/api/users/login";
-      const { data } = await axios.post(url, formData);
+      const url = "/api/users/login";
+      const { data } = await api.post(url, formData);
 
       // 1. Save Token/User info
       localStorage.setItem("userInfo", JSON.stringify(data));

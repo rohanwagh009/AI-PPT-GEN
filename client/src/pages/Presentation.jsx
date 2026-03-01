@@ -3,6 +3,7 @@ import { useNavigate, useParams, Navigate } from "react-router-dom";
 import axios from "axios";
 import pptxgen from "pptxgenjs";
 import { PresentationContext } from "../context/PresentationContext"; // Import Context
+import api from "../api";
 
 const Presentation = () => {
   const { id } = useParams();
@@ -107,9 +108,7 @@ const Presentation = () => {
     const fetchPresentation = async () => {
       if (!currentPresentation && id) {
         try {
-          const { data } = await axios.get(
-            `http://localhost:5000/api/presentation/${id}`,
-          );
+          const { data } = await api.get(`/api/presentation/${id}`);
           setCurrentPresentation(data);
         } catch (error) {
           console.error("Fetch failed:", error);

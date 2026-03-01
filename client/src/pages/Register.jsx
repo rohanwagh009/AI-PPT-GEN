@@ -1,8 +1,9 @@
 import React from "react";
 import { Meteors } from "../components/ui/meteors";
 import { useState } from "react";
-import  axios  from "axios";
+
 import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 const Register = () => {
   const [formData, setFormdata] = useState({
@@ -22,8 +23,8 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:5000/api/users/register";
-      const { data } = await axios.post(url, formData);
+      const url = "/api/users/register";
+      const { data } = await api.post(url, formData);
       localStorage.setItem("userInfo", JSON.stringify(data));
       console.log("Success");
       alert("Registration Successful");
