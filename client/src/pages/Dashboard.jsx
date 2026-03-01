@@ -1,12 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { PresentationContext } from "../context/PresentationContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-
   const [topic, setTopic] = useState("");
-  const [slideCount, setSlideCount] = useState("")
+  const [slideCount, setSlideCount] = useState("");
+
+  const {
+    setTopic: setGlobalTopic,
+    setSlideCount: setGlobalSlideCount,
+    setSlides,
+  } = useContext(PresentationContext);
 
   const handleGenerate = (e) => {
     e.preventDefault();
@@ -14,8 +21,12 @@ const Dashboard = () => {
     if (!topic) {
       return alert("Please enter a topic");
     }
+    setSlides([]);
 
-    navigate("/outline", { state: { topic: topic , slideCount: slideCount || 5} });
+    setGlobalTopic(topic);
+    setGlobalSlideCount(slideCount || 5);
+
+    navigate("/outline");
   };
 
   return (

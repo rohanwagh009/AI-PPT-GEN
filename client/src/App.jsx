@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Outline from "./pages/Outline";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Presentation from "./pages/Presentation";
+import History from "./pages/History";
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
           }
         />
         <Route
+          path="/presentation/:id"
+          element={
+            <ProtectedRoute>
+              <Presentation />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/presentation"
           element={
             <ProtectedRoute>
@@ -41,6 +50,15 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <History/>
+            </ProtectedRoute>
+          }
+          />
+          
       </Routes>
     </div>
   );
