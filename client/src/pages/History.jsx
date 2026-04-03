@@ -26,6 +26,7 @@ const History = () => {
       } catch (error) {
         console.error("Failed to fetch history: ", error);
       }
+      console.log("Current API URL being used:", api.defaults.baseURL);
     };
     fetchHistory();
   }, []);
