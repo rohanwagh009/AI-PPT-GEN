@@ -20,7 +20,7 @@ const generatePresentation = async (req, res) => {
 
   try {
     const model = genAI.getGenerativeModel({
-      model: "gemini-flash-latest",
+      model: "gemini-3-flash-preview",
     });
 
     const prompt = `Generate a ${finalSlideCount}-slide presentation on the topic: "${topic}".
