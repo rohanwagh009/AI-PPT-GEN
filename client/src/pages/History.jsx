@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { PresentationContext } from "../context/PresentationContext";
-import api from '../api'
+import api from "../api";
 
 const History = () => {
   const navigate = useNavigate();
@@ -18,15 +18,12 @@ const History = () => {
         const userId = user?._id || user?.id;
 
         if (userId) {
-          const { data } = await api.get(
-            `/api/presentation/history/${userId}`,
-          );
+          const { data } = await api.get(`/api/presentation/history/${userId}`);
           setPresentations(data);
         }
       } catch (error) {
         console.error("Failed to fetch history: ", error);
       }
-      console.log("Current API URL being used:", api.defaults.baseURL);
     };
     fetchHistory();
   }, []);
